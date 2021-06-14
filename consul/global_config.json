@@ -1,0 +1,32 @@
+[
+	{
+		"key": "config/",
+		"flags": 0,
+		"value": ""
+	},
+	{
+		"key": "config/application/",
+		"flags": 0,
+		"value": ""
+	},
+	{
+		"key": "config/application/application.yml",
+		"flags": 0,
+		"value": "Y3JtOgogICAgYWRtaW46CiAgICAgICAgZW1haWw6IHN0aTJrLmhhaS5seUBnbWFpbC5jb20KICAgICAgICBuYW1lOiBhZG1pbgogICAgICAgIHBhc3N3b3JkOiAxMjM0NTY3OAogICAgand0OgogICAgICAgIGV4cGlyYXRpb24tbWlsbGlzOiA4NjQwMDAwMDAKICAgICAgICBzZWNyZXQ6IEpXVExPR0lHRUFSX0NSTV9TdXBlclNlY3JldEtleQogICAgICAgIHNob3J0LWxpdmVkLW1pbGxpczogMTIwMDAwCnNwcmluZzoKICAgIHJhYmJpdG1xOgogICAgICAgIGhvc3Q6IDE5Mi4xNjguMTY3LjExNAogICAgICAgIHBhc3N3b3JkOiBodW5nCiAgICAgICAgcG9ydDogNTY3MgogICAgICAgIHVzZXJuYW1lOiBodW5nCiAgICBkYXRhc291cmNlOgogICAgICAgIHBhc3N3b3JkOiBBYmNkMTIzNAogICAgICAgIHVybDogamRiYzpwb3N0Z3Jlc3FsOi8vMTkyLjE2OC4xNjcuMTE0OjU0MzIvcG9zdGdyZXMKICAgICAgICB1c2VybmFtZTogcG9zdGdyZXMKYW1xcDoKICAgIGV4Y2hhbmdlOgogICAgICAgIGF0dGVtcHRzOiBhdHRlbXB0cy50b3BpYwpsb2dnaW5nOgogICAgbGV2ZWw6CiAgICAgICAgb3JnOgogICAgICAgICAgICBzcHJpbmdmcmFtZXdvcms6CiAgICAgICAgICAgICAgICBhbXFwOgogICAgICAgICAgICAgICAgICAgIHJhYmJpdDoKICAgICAgICAgICAgICAgICAgICAgICAgY29yZToKICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJhYmJpdEFkbWluOiBERUJVRw=="
+	},
+	{
+		"key": "config/cdo-aas,dev/",
+		"flags": 0,
+		"value": ""
+	},
+	{
+		"key": "config/cdo-aas,production/",
+		"flags": 0,
+		"value": ""
+	},
+	{
+		"key": "config/cdo-aas/",
+		"flags": 0,
+		"value": ""
+	}
+]

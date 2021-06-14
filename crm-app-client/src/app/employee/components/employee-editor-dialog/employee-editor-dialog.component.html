@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Update Employee</h1>
+<div mat-dialog-content>
+    TODO Update
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-raised-button  cdkFocusInitial style="margin-left: 8px;" (click)="onUpdateClicked()" [disabled]="employeeForm.invalid">Update</button>
+    <button mat-raised-button (click)="onCancelClicked()">Cancel</button>
+</div>

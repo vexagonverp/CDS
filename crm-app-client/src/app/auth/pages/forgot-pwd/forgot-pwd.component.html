@@ -1,0 +1,31 @@
+<div class="crm-box">
+    <div class="crm-box-inner">
+        <h1>Password assistance</h1>
+        <form class="forgot-form" [formGroup]="forgotForm">
+            <div>Enter the email address associated with your account.</div>
+            <div class="p-grid p-fluid p-mt-2 p-ml-1">
+                <div class="p-flex-row">
+                    <div class="p-field p-col-12">
+                        <span class="p-float-label">
+                                  <input pInputText id="email" formControlName="email" required>
+                            <label for="email">Email*</label>
+                        </span>
+                        <div *ngIf="f.email.hasError('email') && !f.email.hasError('required')">
+                            <span style="color: red;">Please enter a <b>valid</b> email address</span>
+                        </div>
+                        <div *ngIf="f.email.hasError('required')">
+                            <span style="color: red;">Email is <strong>required</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <span class="p-ml-2">
+            <button pButton (click)="resetPwd()" class="p-button-warning p-button-raised"
+                    [disabled]="forgotForm.invalid"><i class="pi pi-check p-mr-2"></i>Continue</button>
+        </span>
+    </div>
+</div>
+<span class="p-ml-2 p-mt-4">
+        <a [routerLink]="['/auth','signin']">Already have an account?</a>
+</span>

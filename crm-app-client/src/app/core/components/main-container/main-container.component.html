@@ -1,0 +1,45 @@
+
+<div class="navbar-container mat-elevation-z6">
+    <nav class="navbar-header">
+        <div class="p-d-flex p-jc-between">
+            <a mat-button routerLink="/" aria-label="Training">
+                <img class="crm-logo"
+                     src="../../../../assets/img/angular-white-transparent.svg"
+                     alt="angular">
+                <span>LogiGear CRM</span>
+            </a>
+
+            <div class="flex-spacer"></div>
+            <ng-container *ngrxLet="user$ as user">
+                <button mat-button [matMenuTriggerFor]="userMenu">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #userMenu="matMenu">
+                    <a mat-menu-item (click)="onViewProfile()">
+                        <i class="pi pi-user p-mr-2"></i>View profile
+                    </a>
+                    <ng-container *ngIf="user.goodAdmin">
+                        <p-divider></p-divider>
+                        <button  mat-menu-item (click)="onAdministratorClicked()">Administrator</button>
+                        <p-divider></p-divider>
+                    </ng-container>
+                    <button mat-menu-item (click)="onSignOutClicked()">
+                        <i class="pi pi-sign-out p-mr-2"></i>Sign out
+                    </button>
+                </mat-menu>
+            </ng-container>
+        </div>
+
+    </nav>
+
+    <nav class="navbar navbar-show-small">
+
+    </nav>
+
+</div>
+
+<div class="crm-container">
+    <router-outlet></router-outlet>
+</div>
+
+<crm-footer></crm-footer>

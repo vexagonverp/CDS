@@ -1,0 +1,35 @@
+<p-toast></p-toast>
+<ng-container *ngrxLet="isLoading$ as loading">
+    <ng-container *ngIf="loading">
+        <div id="cover-spin"></div>
+    </ng-container>
+</ng-container>
+<p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+<div class="p-ml-4 p-mt-4" style="font-size: 1.25rem; font-weight: bold; color: #0066c0;" *ngrxLet="user$ as currentUser">
+    <ng-container *ngIf="currentUser.goodAdmin">
+        Hello <ng-container *ngrxLet="currentEmployee$ as curEmp">{{curEmp.fullName}}</ng-container>
+    </ng-container>
+    <ng-container *ngIf="!currentUser.goodAdmin">
+        Hello <ng-container *ngrxLet="currentEmployee$ as curEmp">{{curEmp.fullName}}</ng-container>
+    </ng-container>
+</div>
+<div class="p-mt-4 p-mr-2 p-ml-2 p-d-flex p-flex-row p-flex-column">
+    <div class="p-d-flex">
+        <p-card [style]="{'border-color': '#0066c0', 'border-radius': '2px'}" class="p-ml-2 p-mr-2 p-mb-2 p-shadow-5">
+            <div class="p-d-flex p-flex-column p-flex-row">
+                <div class="p-as-center"><i style="font-size: 2.5rem; color: #0066c0" class="pi pi-id-card"></i></div>
+                <div routerLink="/employee" class="p-as-start" style="font-size: 1.25rem; font-weight: bold; color: #0066c0;">My Profile
+                </div>
+            </div>
+        </p-card>
+        <p-card [style]="{'border-color': '#0066c0', 'border-radius': '2px'}" class="p-ml-2 p-mr-2 p-mb-2 p-shadow-5">
+            <div class="p-d-flex p-flex-column p-flex-row">
+                <div class="p-as-center"><i style="font-size: 2.5rem; color: #0066c0" class="pi pi-users"></i></div>
+                <div routerLink="/admin/employees" class="p-as-start" style="font-size: 1.25rem; font-weight: bold; color: #0066c0;">Employee List
+                </div>
+            </div>
+        </p-card>
+    </div>
+
+</div>
+

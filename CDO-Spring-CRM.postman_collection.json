@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "2053f9ca-1a2f-4fb6-baad-e3955e6f3577",
+		"name": "CDO-Spring-CRM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sign-in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"bangmapleproject@gmail.com\",\r\n    \"password\": \"Nhatrang1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign-up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ngo Nguyen Bang\",\r\n    \"email\": \"bangmapleproject2@gmail.com\",\r\n    \"password\": \"Nhatrang1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forget Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth/forgotpassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"forgotpassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee Roles",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "OT-Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTYxODI4NTE4NywiZXhwIjoyNDgyMjg1MTg3fQ.f82Eby_oPnH28CbcBbQNY6z5u09u6-xHSamycWifhhVsvZ_y843BvZzsCPLkFXsJtK8IhMXMg_tCGAd46E40NQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/roles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/employees/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"employees",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Employee with ID",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "OT-Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTYxODQ2OTI1NSwiZXhwIjoyNDgyNDY5MjU1fQ.MV2maJY2T4cKfdIgqcIVOSBcJNkX-lwPkXK5pdNsFZ7pCGqDt08YmFWr8M-5MBkknoTmWSJSrrGBJpLU6i3tcg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 7,\r\n    \"fullName\": \"Lê Văn Tết 1233\",\r\n    \"birthDay\": \"1984-01-01T01:53:15.657Z\",\r\n    \"placeOfBirth\": \"Quảng Bình\",\r\n    \"gender\": \"Male\",\r\n    \"idNumber\": 230564795,\r\n    \"issueDate\": \"2013-04-06T01:53:15.657Z\",\r\n    \"race\": \"Kinh\",\r\n    \"religion\": \"Không\",\r\n    \"marriedStatus\": \"Single\",\r\n    \"cellPhone\": 905078789,\r\n    \"taxID\": 6079365237,\r\n    \"insuranceBookNo\": 7910266236,\r\n    \"address\": \"Quận 1\",\r\n    \"bankName\": \"Citibank\",\r\n    \"bankAccount\": 291000123462,\r\n    \"imagePath\": null,\r\n    \"degree\": \"ĐH Sư Phạm Kỹ Thuật\",\r\n    \"major\": null,\r\n    \"employeeID\": 6607,\r\n    \"startDate\": \"2017-02-01T01:53:15.657Z\",\r\n    \"contractedDate\": \"2015-04-06T01:53:15.657Z\",\r\n    \"department\": \"EPG\",\r\n    \"jobTitle\": \"Sr. Software Developer\",\r\n    \"manager\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.167.239:5000/api/employees/update",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"167",
+						"239"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"employees",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all employees's profile image",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Get employee's profile image by empId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Upload employee's profile image by empId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjE5MTQ5ODQ1LCJleHAiOjI0ODMxNDk4NDUsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZXMiOlsiQURNSU4iXX0.eRa3mk7fhHo1ZKTyQzfi9wOpB-tAv_yUfOURJjLoFqVcPS4p73VnFccwj-cVZrbaoeT8CeYfPcCytvENt9csJA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjE5MDg1NTAzLCJleHAiOjI0ODMwODU1MDMsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZXMiOlsiQURNSU4iXX0.j3IQ46gSRnQ27qU9UO9G41I3qzTsc3ntvk4NDnQfhc1xruybsEUXBfAPNeBdZqt_-uORa6paD-8ivSmi6lQEfQ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "imageFile",
+							"type": "file",
+							"src": "/C:/Users/bang.ngo/Downloads/20210419_140853.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/employees/image/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"employees",
+						"image",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

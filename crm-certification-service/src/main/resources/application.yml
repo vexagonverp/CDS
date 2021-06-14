@@ -1,0 +1,64 @@
+server:
+    port: 5001
+    error:
+        include-message: always
+        include-binding-errors: always
+        include-stacktrace: ON_TRACE_PARAM
+        include-exception: true
+spring:
+    main:
+        allow-bean-definition-overriding: true
+    application:
+        name: cdo-aas
+    config:
+        import: consul:localhost:8500
+    cloud:       
+        consul:
+            config:
+                enable: true
+                prefixes: config
+                defaultContext: application
+                format: yaml
+                data-key: application.yml
+            host: localhost
+            port: 8500
+            discovery:
+                instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+                health-check-critical-timeout: 60s
+    datasource:
+        password: Abcd1234
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+    mail:
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    connectiontimeout: 5000
+                    starttls:
+                        enable: true
+                    timeout: 5000
+                    writetimeout: 5000
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 2KB
+            max-file-size: 200MB
+            max-request-size: 215MB
+reflectoring:
+    trace: true
+crm:
+    admin:
+        email: sti2k.hai.ly@gmail.com
+        name: admin
+        password: 12345678
+    jwt:
+        expiration-millis: 864000000
+        secret: JWTLOGIGEAR_CRM_SuperSecretKey
+        short-lived-millis: 120000

@@ -1,0 +1,68 @@
+<div class="navbar-container mat-elevation-z6">
+    <nav class="navbar-header">
+        <div class="p-d-flex p-jc-between">
+            <a mat-button routerLink="/" aria-label="Training">
+                <img class="crm-logo"
+                     src="../../../../assets/img/angular-white-transparent.svg"
+                     alt="angular">
+                <span>LogiGear CRM</span>
+            </a>
+
+            <div class="flex-spacer"></div>
+            <div *ngrxLet="user$ as user">
+                <button mat-button [matMenuTriggerFor]="userMenu">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #userMenu="matMenu">
+                    <a mat-menu-item routerLink="/admin">View all employees</a>
+                    <ng-container *ngIf="user.goodAdmin">
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item (click)="onAdministratorClicked()">Administrator</button>
+                        <mat-divider></mat-divider>
+                    </ng-container>
+
+                    <button mat-menu-item (click)="onSignOutClicked()">Sign out</button>
+                </mat-menu>
+            </div>
+        </div>
+
+    </nav>
+
+    <nav class="navbar navbar-show-small">
+
+    </nav>
+
+</div>
+<div class="crm-container ">
+
+
+    <!--<div class="mat-typography s-spacing-extra-large">
+        <h2>Administrator</h2>
+    </div>
+
+    <nav mat-tab-nav-bar class="tabbed-content">
+        <a mat-tab-link
+           routerLink="products"
+           routerLinkActive #rla0="routerLinkActive"
+           [active]="rla0.isActive">EMPLOYEES</a>
+    </nav>-->
+
+    <div class="content">
+        <div class="p-grid" *ngrxLet="employees$ as employees">
+                <p-card routerLink="/admin/employees/{{emp.id}}" class="p-col p-shadow-5 p-mr-2 p-mt-4 p-ml-2 p-mb-2"
+                        *ngFor="let emp of employees" (click)="showEmpInformation(emp.id)">
+                        <img [style]="{'width': '5rem', 'height': '5rem'}" style="text-align: center;" [src]="emp.image" [alt]="emp.id"/>
+                    <h3 style="text-align: center;"><b>{{emp.fullName}}</b></h3>
+                    <h3 style="text-align: center;">
+                        <b class="p-mr-2">ID:</b>
+                        <p-tag severity="success">{{emp.id}}</p-tag>
+                    </h3>
+                    <h3 style="text-align: center;">
+                        <p-tag>{{emp.jobTitle}}</p-tag>
+                    </h3>
+                </p-card>
+        </div>
+    </div>
+</div>
+<crm-footer></crm-footer>
+

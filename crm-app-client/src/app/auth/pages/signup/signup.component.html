@@ -1,0 +1,87 @@
+<form class="signup-form" [formGroup]="signupForm">
+    <div class="crm-box">
+        <div class="crm-box-inner">
+            <h1>Create account</h1>
+            <div class="p-grid p-fluid p-mt-2">
+                <div class="p-field p-col-12">
+                        <span class="p-float-label">
+                            <input style="width: 100%" pInputText id="fullName"
+                                   formControlName="fullName" class="form-control" required>
+                            <label for="fullName">FullName*</label>
+                        </span>
+                    <div [hidden]="!f.fullName.hasError('minlength')" style="color: red;">
+                        Please enter a <b>valid</b> name with <b>at least 3 characters</b>.
+                    </div>
+                    <div [hidden]="!f.fullName.hasError('required') ||
+                                signupForm.controls['fullName'].valid ||!signupForm.controls['fullName'].dirty"
+                         style="color: red;">Fullname is <b>required</b>
+                    </div>
+                </div>
+                <div class="p-field p-col-12">
+                    <span class="p-float-label">
+                    <input pInputText id="email" formControlName="email" class="form-control" required/>
+                        <label for="email">Email*</label>
+                    </span>
+                    <div [hidden]="!f.email.hasError('email') ||
+                            f.email.hasError('required')" style="color: red;">
+                        Please enter a <b>valid</b> email address
+                    </div>
+                    <div [hidden]="!f.email.hasError('required') ||
+                        signupForm.controls['email'].valid ||!signupForm.controls['email'].dirty" style="color: red;">
+                        Email is <b>required</b>
+                    </div>
+                </div>
+                <div class="p-field p-col-12">
+                    <span class="p-float-label">
+                        <input pInputText type="password" id="password" formControlName="password">
+                        <label for="password">Password*</label>
+                    </span>
+                    <div [hidden]="!f.password.hasError('required') ||
+                 signupForm.controls['password'].valid || !signupForm.controls['password'].dirty"
+                         style="color: red;">
+                        Password is <b>required</b>
+                    </div>
+                    <div [hidden]="!f.password.hasError('minlength')" style="color: red;">
+                        Password must be <b>at least 8 characters</b> long
+                    </div>
+                </div>
+                <div class="p-field p-col-12">
+                    <span class="p-float-label">
+                        <input pInputText type="password" id="confirmPassword"
+                               formControlName="confirmPassword">
+                        <label for="confirmPassword">Confirm password*</label>
+                    </span>
+                    <div [hidden]="!f.confirmPassword.hasError('required')
+                            || signupForm.controls['confirmPassword'].valid ||
+                            !signupForm.controls['confirmPassword'].dirty" style="color: red;">
+                        Re-enter password is <b>required</b>
+                    </div>
+                    <div [hidden]="!f.confirmPassword.hasError('confirmedValidator')"
+                         style="color: red;">
+                        Password and Confirm Password must be <b>matched</b>
+                    </div>
+                </div>
+
+                <!--
+                  the SITE_KEY is the sitekey from your admin console.
+                  use form control for validation
+                -->
+                <div class="p-ml-2">
+                    <div class="g-recaptcha">
+                        <re-captcha (resolved)="resolved($event)"
+                                    siteKey="6LcHUp4aAAAAABFyGxRcKbAURjynoXA-nVpt2eHw">
+                        </re-captcha>
+                    </div>
+                </div>
+
+            </div>
+            <div class="p-col-6">
+                <button pButton class="p-mt-2 p-button-warning p-button-raised" (click)="register()"
+                        [disabled]="signupForm.invalid  || !isCaptcha()"><i class="pi pi-check p-mr-2"></i>Create
+                </button>
+            </div>
+        </div>
+
+    </div>
+</form>
+<div class="p-mt-2"> Already have an account?&nbsp; <a [routerLink]="['/auth','signin']">Sign in</a></div>

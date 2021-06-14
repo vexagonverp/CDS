@@ -1,0 +1,53 @@
+.progress-spinner {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: visible;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+}
+
+.emp-table-row-title-value {
+  color: #111111;
+}
+
+.stiky-column {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 10px;
+}
+
+.treetableDate .ui-widget-content {
+  width: 80%; // or in pixel depends how much width you want.
+}
+
+.fileupload {
+  width: 100px;
+  height: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+#hide input[type=file] {
+  display:none;
+  margin:10px;
+}
+#hide input[type=file] + label {
+  display:inline-block;
+  margin:20px;
+  padding: 4px 32px;
+  background-color: #FFFFFF;
+  border:solid 1px #666F77;
+  border-radius: 6px;
+  color:#666F77;
+}
+#hide input[type=file]:active + label {
+  background-image: none;
+  background-color:#2D6C7A;
+  color:#FFFFFF;
+}

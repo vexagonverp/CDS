@@ -1,0 +1,466 @@
+<p-toast></p-toast>
+<ng-container *ngrxLet="isLoading$ as loading">
+    <ng-container *ngIf="loading">
+        <div id="cover-spin"></div>
+    </ng-container>
+</ng-container>
+<p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+
+<p-card>
+
+    <!--<p-progressSpinner class="progress-spinner" *ngIf="(loading$)"></p-progressSpinner>-->
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+    <!--
+        <div *ngIf="!(employee$ | async)">
+            <h3 class="p-mb-3" style="color:red;">The server is occurred an error! Please try again later!</h3>
+            <div class="p-d-flex">
+                <p-card class="p-mr-3">
+                    <h3><i style="font-size: 2.5rem;" class="pi pi-user"></i></h3>
+                    <h3 class="p-card-content"><b>View personal profile detail</b></h3>
+                </p-card>
+
+                <p-card class="p-mr-3">
+                    <h3><i style="font-size: 2.5rem;" class="pi pi-briefcase"></i></h3>
+
+                    <h3 class="p-card-content"><b>View my resume</b></h3>
+                </p-card>
+            </div>
+        </div>
+        -->
+    <div>
+        <div class="p-d-flex">
+            <div class="p-mr-auto p-ml-2">
+                <h1>Employee Profile Detail</h1>
+            </div>
+            <ng-container *ngIf="isEmpInfoAbleToUpdate()">
+                <div class="p-ml-auto p-mr-2">
+                    <button pButton (click)="confirmUpdate()"
+                            class="p-button-success p-button-sm"
+                            icon="pi pi-check" label="Edit profile"></button>
+                </div>
+            </ng-container>
+        </div>
+        <ng-container *ngrxLet="employee$ as employee">
+            <div class="p-d-flex p-flex-column p-flex-md-row">
+                <p-table class="p-shadow-5 p-mb-4 p-mr-2 p-ml-2" [value]="[employee]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="stiky-column" style="font-family: sans-serif; color: #0066c0">
+                                <b>Personal Information</b>
+                            </th>
+                            <th class="stiky-column"></th>
+                            <th class="stiky-column"></th>
+                            <th class="stiky-column"></th>
+                            <th class="stiky-column"></th>
+                            <th class="stiky-column"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-emp>
+                        <tr>
+                            <td (click)="toggleEmpFullnameUpdate(emp.fullName)">Full Name
+                                <ng-container *ngIf="empUpdated.isFullNameUpdated">*</ng-container>
+                            </td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="!empEdit.isFullNameEditShown">
+                                    <div (click)="toggleEmpFullnameUpdate(emp.fullName)">
+                                        <ng-container *ngIf="currentEmp.fullName !== undefined">
+                                            {{(currentEmp.fullName === null) ? 'N/A' : currentEmp.fullName}}
+                                        </ng-container>
+                                        <ng-container *ngIf="currentEmp.fullName === undefined">
+                                            {{(emp.fullName === null) ? 'N/A' : emp.fullName}}
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="empEdit.isFullNameEditShown">
+                                    <input pInputText class="p-inputtext-sm"
+                                           (keypress)="keyPress($event, emp.id)" (focusout)="updateEmpFullname()"
+                                           type="text" [(ngModel)]="currentEmp.fullName"
+                                           value="{{currentEmp.fullName}}"/>
+                                </ng-container>
+                            </td>
+
+                            <td>VN Name</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="currentEmp.fullName !== undefined">
+                                    <div (click)="toggleEmpFullnameUpdate(emp.fullName)">
+                                        {{(currentEmp.fullName === null) ? 'N/A' : currentEmp.fullName}}
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="currentEmp.fullName === undefined">
+                                    <div (click)="toggleEmpFullnameUpdate(emp.fullName)">
+                                        {{(emp.fullName === null) ? 'N/A' : emp.fullName}}
+                                    </div>
+                                </ng-container>
+                            </td>
+
+                            <td (click)="toggleEmpBirthdayUpdate(emp.birthDay)">Date of Birth</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="empEdit.isBirthDayEditShown">
+                                    <p-calendar
+                                            [maxDate]="maxDate"
+                                            [(ngModel)]="birthDay"
+                                            [touchUI]="true"
+                                            [monthNavigator]="true"
+                                            [yearNavigator]="true"
+                                            yearRange="{{maxDate.getFullYear()-150}}:{{maxDate.getFullYear()}}"
+                                            (onClose)="updateEmpBirthday()"
+                                            [readonlyInput]="true"></p-calendar>
+                                </ng-container>
+                                <ng-container *ngIf="!empEdit.isBirthDayEditShown">
+                                    <p-tag (click)="toggleEmpBirthdayUpdate(emp.birthDay)"
+                                           value="{{(emp.birthDay === null) ? 'N/A' : (emp.birthDay | date:'MM/dd/yyyy')}}"
+                                           severity="info"></p-tag>
+                                </ng-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td (click)="toggleEmpPlaceOfBirthUpdate(emp.placeOfBirth)">Place of Birth</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="!empEdit.isPlaceOfBirthEditShown">
+                                    <div (click)="toggleEmpPlaceOfBirthUpdate(emp.placeOfBirth)">
+                                        <ng-container *ngIf="currentEmp.placeOfBirth !== undefined">
+                                            {{(currentEmp.placeOfBirth === null) ? 'N/A' : currentEmp.placeOfBirth}}
+                                        </ng-container>
+                                        <ng-container *ngIf="currentEmp.placeOfBirth === undefined">
+                                            {{(emp.placeOfBirth === null) ? 'N/A' : emp.placeOfBirth}}
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="empEdit.isPlaceOfBirthEditShown">
+                                    <div class="p-d-flex">
+                                        <input pInputText class="p-inputtext-sm" (keypress)="keyPress($event, emp.id)"
+                                               (focusout)="updateEmpPlaceOfBirth()"
+                                               [(ngModel)]="currentEmp.placeOfBirth"
+                                               value="{{currentEmp.placeOfBirth}}"/>
+                                    </div>
+                                </ng-container>
+                            </td>
+                            <td>VN Place of Birth</td>
+                            <td class="emp-table-row-title-value">{{emp.placeOfBirth}}</td>
+                            <td>Place of Origin</td>
+                            <td class="emp-table-row-title-value">N/A</td>
+                        </tr>
+                        <tr>
+                            <td>VN Place of Origin</td>
+                            <td class="emp-table-row-title-value">N/A</td>
+
+                            <td>Nationality</td>
+                            <td class="emp-table-row-title-value">N/A</td>
+
+                            <td (click)="toggleEmpGenderUpdate(emp.gender)">Gender</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="!empEdit.isGenderEditShown">
+                                    <div (click)="toggleEmpGenderUpdate(emp.gender)">
+                                        <ng-container *ngIf="currentEmp.gender !== undefined">
+                                            {{(currentEmp.gender === null) ? 'N/A' : currentEmp.gender}}
+                                        </ng-container>
+                                        <ng-container *ngIf="currentEmp.gender === undefined">
+                                            {{(emp.gender === null) ? 'N/A' : emp.gender}}
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="empEdit.isGenderEditShown">
+                                    <div class="p-d-flex">
+                                        <select style="width: 90%" pInputText class="p-inputtext-sm"
+                                                (keypress)="keyPress($event, emp.id)"
+                                                (focusout)="updateEmpGender()"
+                                                [(ngModel)]="currentEmp.gender">
+                                            <option *ngFor="let gender of genders"
+                                                    value="{{gender}}">{{gender}}</option>
+                                        </select>
+                                    </div>
+                                </ng-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td (click)="toggleEmpDegreeUpdate(emp.degree)">Degree</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="!empEdit.isDegreeEditShown">
+                                    <div (click)="toggleEmpDegreeUpdate(emp.degree)">
+                                        <ng-container *ngIf="currentEmp.degree !== undefined">
+                                            {{(currentEmp.degree === null) ? 'N/A' : currentEmp.degree}}
+                                        </ng-container>
+                                        <ng-container *ngIf="currentEmp.degree === undefined">
+                                            {{(emp.degree === null) ? 'N/A' : emp.degree}}
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="empEdit.isDegreeEditShown">
+                                    <div class="p-d-flex">
+                                        <input pInputText class="p-inputtext-sm" (keypress)="keyPress($event, emp.id)"
+                                               (focusout)="updateEmpDegree()"
+                                               [(ngModel)]="currentEmp.degree"
+                                               value="{{currentEmp.degree}}"/>
+                                    </div>
+                                </ng-container>
+                            </td>
+
+                            <td>Other Degree</td>
+                            <td class="emp-table-row-title-value">N/A</td>
+
+                            <td>ID Number</td>
+                            <td class="emp-table-row-title-value">N/A</td>
+                        </tr>
+                        <tr>
+                            <td (click)="toggleEmpIssueDateUpdate(emp.issueDate)">Issue Date</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="empEdit.isIssueDateEditShown">
+                                    <p-calendar
+                                            [maxDate]="maxDate"
+                                            [(ngModel)]="issueDate"
+                                            [touchUI]="true"
+                                            [monthNavigator]="true"
+                                            [yearNavigator]="true"
+                                            yearRange="{{maxDate.getFullYear()-150}}:{{maxDate.getFullYear()}}"
+                                            (onClose)="updateEmpIssueDate()"
+                                            [readonlyInput]="true"></p-calendar>
+                                </ng-container>
+                                <ng-container *ngIf="!empEdit.isIssueDateEditShown">
+                                    <p-tag (click)="toggleEmpIssueDateUpdate(emp.issueDate)"
+                                           value="{{(emp.issueDate === null) ? 'N/A' :
+                                            (emp.issueDate | date:'dd/MM/yyyy')}}" severity="info"></p-tag>
+                                </ng-container>
+
+                            </td>
+
+                            <td>Issue Location</td>
+                            <td class="emp-table-row-title-value">N/A</td>
+
+                            <td>VN Issue Location</td>
+                            <td class="emp-table-row-title-value">N/A</td>
+                        </tr>
+                        <tr>
+                            <td (click)="toggleEmpRaceUpdate(emp.race)">Race</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="!empEdit.isRaceEditShown">
+                                    <div (click)="toggleEmpRaceUpdate(emp.race)">
+                                        <ng-container
+                                                *ngIf="currentEmp.race !== undefined">{{currentEmp.race}}</ng-container>
+                                        <ng-container
+                                                *ngIf="currentEmp.race === undefined">{{emp.race}}</ng-container>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="empEdit.isRaceEditShown">
+                                    <div class="p-d-flex">
+                                        <input pInputText class="p-inputtext-sm" (keypress)="keyPress($event, emp.id)"
+                                               (focusout)="updateEmpRace()"
+                                               [(ngModel)]="currentEmp.race"
+                                               value="{{currentEmp.race}}"/>
+                                    </div>
+                                </ng-container>
+                            </td>
+
+                            <td (click)="toggleEmpReligion(emp.religion)">Religion</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="!empEdit.isReligionEditShown">
+                                    <div (click)="toggleEmpReligion(emp.religion)">{{emp.religion}}</div>
+                                </ng-container>
+                                <ng-container *ngIf="empEdit.isReligionEditShown">
+                                    <input (keypress)="keyPress($event, emp.id)" pInputText
+                                           [(ngModel)]="currentEmp.religion"
+                                           value="{{currentEmp.religion}}" class="p-inputtext-sm"/>
+                                </ng-container>
+
+                            </td>
+
+                            <td>Current Status</td>
+                            <td class="emp-table-row-title-value">
+                                <p-tag value="Contracted" severity="success"></p-tag>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td (click)="toggleEmpMarriedStatusUpdate(emp.marriedStatus)">Married Status</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="!empEdit.isMarriedStatusEditShown">
+                                    <div (click)="toggleEmpMarriedStatusUpdate(emp.marriedStatus)">
+                                        <ng-container
+                                                *ngIf="currentEmp.marriedStatus !== undefined">{{currentEmp.marriedStatus}}</ng-container>
+                                        <ng-container
+                                                *ngIf="currentEmp.marriedStatus === undefined">{{emp.marriedStatus}}</ng-container>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="empEdit.isMarriedStatusEditShown">
+                                    <div class="p-d-flex">
+                                        <input pInputText class="p-inputtext-sm" (keypress)="keyPress($event, emp.id)"
+                                               (focusout)="updateEmpMarriedStatus()"
+                                               [(ngModel)]="currentEmp.marriedStatus"
+                                               value="{{currentEmp.marriedStatus}}"/>
+                                    </div>
+                                </ng-container>
+                            </td>
+
+                            <td (click)="toggleEmpMajorUpdate(emp.major)">Major</td>
+                            <td class="emp-table-row-title-value">
+                                <ng-container *ngIf="!empEdit.isMajorEditShown">
+                                    <div (click)="toggleEmpMajorUpdate(emp.major)">
+                                        <ng-container
+                                                *ngIf="currentEmp.major !== undefined">{{(currentEmp.major === null) ? "N/A" : currentEmp.major}}</ng-container>
+                                        <ng-container
+                                                *ngIf="currentEmp.major === undefined">{{(emp.major === null) ? "N/A" : emp.major}}</ng-container>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="empEdit.isMajorEditShown">
+                                    <div class="p-d-flex">
+                                        <input pInputText class="p-inputtext-sm" (keypress)="keyPress($event, emp.id)"
+                                               (focusout)="updateEmpMajor()"
+                                               [(ngModel)]="currentEmp.major"
+                                               value="{{currentEmp.major}}"/>
+                                    </div>
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="p-d-flex p-flex-column p-flex-md-row">
+                <p-table class="p-mb-2 p-shadow-5 p-mr-2 p-ml-2" [value]="[employee]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="p-mb-auto"
+                                style="font-family: sans-serif; color: #0066c0;"><b>At Company</b>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-emp>
+                        <tr>
+                            <td>Employee ID</td>
+                            <td class="emp-table-row-title-value" style="color: green">
+                                <p-tag value="{{(emp.employeeID === null) ? 'N/A' : emp.employeeID}}"
+                                       severity="success"></p-tag>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Start Date</td>
+                            <td class="emp-table-row-title-value">
+                                <p-tag value="{{(emp.startDate === null) ? 'N/A' :
+                                 (emp.startDate | date:'dd/MM/yyyy')}}" severity="warning"></p-tag>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Contracted Date</td>
+                            <td class="emp-table-row-title-value">
+                                <p-tag value="{{(emp.contractedDate === null) ? 'N/A' :
+                                 (emp.contractedDate | date:'dd/MM/yyyy')}}" severity="success">
+                                </p-tag>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Department</td>
+                            <td class="emp-table-row-title-value">{{(emp.department === null) ? 'N/A' : emp.department}}</td>
+                        </tr>
+                        <tr>
+                            <td>Job Title</td>
+                            <td class="emp-table-row-title-value">{{(emp.jobTitle === null) ? 'N/A' : emp.jobTitle}}</td>
+                        </tr>
+                        <tr>
+                            <td>Manager</td>
+                            <td class="emp-table-row-title-value">{{(emp.manager === null) ? "N/A" : emp.manager}}</td>
+                        </tr>
+                        <tr>
+                            <td>Tax ID</td>
+                            <td class="emp-table-row-title-value">{{(emp.taxID === null) ? "N/A" : emp.taxID}}</td>
+                        </tr>
+                        <tr>
+                            <td>Issue Date</td>
+                            <td class="emp-table-row-title-value">{{emp.issueDate | date:'dd/MM/yyyy'}}</td>
+                        </tr>
+                        <tr>
+                            <td>Insurance Book No</td>
+                            <td class="emp-table-row-title-value">{{emp.insuranceBookNo}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <div class="p-d-flex p-flex-column p-flex-row">
+                    <p-table class="p-mb-2 p-ml-2 p-mr-2 p-shadow-5 p-as-start" [value]="[employee]">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="p-mb-auto"
+                                    style="font-family: sans-serif; color: #0066c0"><b>Contact</b>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-emp>
+                            <tr>
+                                <td>Home Phone</td>
+                                <td class="emp-table-row-title-value">
+                                    N/A
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cell Phone</td>
+                                <td class="emp-table-row-title-value">{{emp.cellPhone}}</td>
+                            </tr>
+                            <tr>
+                                <td>Floor</td>
+                                <td class="emp-table-row-title-value">N/A</td>
+                            </tr>
+                            <tr>
+                                <td>Ext Number</td>
+                                <td class="emp-table-row-title-value">N/A</td>
+                            </tr>
+                            <tr>
+                                <td>Personal Email</td>
+                                <td class="emp-table-row-title-value">N/A</td>
+                            </tr>
+                            <tr>
+                                <td>Office Email</td>
+                                <td class="emp-table-row-title-value">N/A</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <p-table class="p-mb-2 p-ml-2 p-mr-2 p-shadow-5 p-as-start" [value]="[employee]">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="p-mb-auto"
+                                    style="font-family: sans-serif;
+                                        color: #0066c0; font-weight: bold;">Bank Account
+                                </th>
+                                <th></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-emp>
+                            <tr>
+                                <td>Bank Name</td>
+                                <td class="emp-table-row-title-value">{{emp.bankName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Bank Account</td>
+                                <td class="emp-table-row-title-value">{{emp.bankAccount}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+
+                <div class="p-d-flex p-flex-column p-flex-row">
+                    <div class="p-d-flex p-jc-center">
+                        <p-card class="p-shadow-5 p-mr-2 p-as-end p-ml-2">
+                            <ng-template pTemplate="header">
+                                <div class="p-d-flex">
+                                    <div class="p-d-flex"
+                                         style="background: #f5f4f4; border-top-left-radius: 3px; border-top-right-radius: 3px">
+                                        <h3 class="p-mt-2 p-ml-3" style="font-family: sans-serif; color: #0066c0"><b>Profile
+                                            Picture</b></h3>
+                                    </div>
+                                    <input (change)="replaceImage($event)" id="fileChooser" style="position:relative;overflow:hidden;display:none;" type="file"
+                                           value="Upload image" accept="image/png"/>
+                                    <button (click)="activeFileChooser()" pButton [style]="{'height' : '100%', 'width': '130px'}"
+                                            class="p-button-sm p-ml-3 p-mt-2 ">
+                                        Upload picture
+                                    </button>
+                                </div>
+                            </ng-template>
+                            <div *ngrxLet="currentEmployeeImage$ as img">
+                                <img id="image" style="height: 100%; width: 250px;" src="{{img}}" alt="{{img}}"/>
+                            </div>
+                        </p-card>
+                    </div>
+
+                </div>
+            </div>
+
+        </ng-container>
+    </div>
+</p-card>
