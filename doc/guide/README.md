@@ -90,7 +90,7 @@ The project aims to build a sub module of the internal CRM, called "Capability D
        ./mvnw spring-boot:run
      ```
      
-     # Notes
+     **Notes**
      
      If ./mvnw spring-boot:run could not run, please install mvn wrapper:
      
@@ -145,6 +145,7 @@ Front-end is a webserver run at port 4200
    ```
    
     Go to Consul web management at  http://localhost:8500 and edit rabbitMQ and PostGreSQL address then save it
+    
     ![alt text](./images/consulKVConfiguration.png)
 
 3. You need a RabbitMQ server running. Run the server according to the instructions for your OS, for example:
@@ -154,13 +155,18 @@ Front-end is a webserver run at port 4200
    ```
    
     Open to rabbitMQ web manager at http://localhost:15672/, login with default user 'gues't (password: 'guest'). Create user 'hung' with password 'hung' as following:
+    
     ![alt text](./images/rabbitMQCreateUser.png)
+    
     If you want to access your rabbitMQ server outside localhost, double click on created user and add permission for this user:
+    
     ![alt text](./images/rabbitMQAddRemotePermission.png)
 
 4. To start the Authentication&Authorization microservice, you must edit Consul configuration in application.yml 
+    
     ![alt text](./images/consulConfiguration.png)
-    Then  use the command line with the included Maven wrapper:
+   
+   Then  use the command line with the included Maven wrapper:
    
    ```bash
     cdo-aas$ ./mvnw spring-boot:run
@@ -177,8 +183,7 @@ Front-end is a webserver run at port 4200
    ```bash
     gateway ./mvnw spring-boot:run
    ```
-   
-	  **Notes**
+   *Notes*
    If ./mvnw spring-boot:run could not run, please install mvn wrapper:
    
    ```bash
