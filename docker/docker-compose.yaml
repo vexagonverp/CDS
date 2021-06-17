@@ -1,0 +1,72 @@
+version: '3.1'
+services:
+  postgres-db:
+    image: postgres
+    ports:
+      - 3306:3306
+      - 33060:33060
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=Abcd1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3306"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  consul:
+    image: consul
+    ports: 
+      - 8500:8500
+    volumes: 
+      - consul-data:/consul/data
+    depends_on:
+      - postgres-db
+  gateway:
+    image: logigear/gateway-service:latest
+    ports:
+      - 5000:5000
+    environment:
+      - DIR=gateway
+      - SERVICE_NAME=gateway-service
+      - EXPOSE_PORT=5000
+    depends_on:
+      - consul
+  career:
+    image: logigear/career-service:latest
+    ports:
+      - 5001:5001
+    environment:
+      - DIR=crm-certification-service
+      - SERVICE_NAME=career-service
+      - EXPOSE_PORT=5001
+    depends_on:
+      - consul 
+  employees:
+    image: logigear/employees-service:latest
+    ports:
+      - 5002:5002
+    environment:
+      - DIR=crm-employees-service
+      - SERVICE_NAME=employees-service
+      - EXPOSE_PORT=5002
+    depends_on:
+      - consul
+  client:
+    image: logigear/client-service:0.0.61
+    user: "node"
+    ports:
+      - 4200:4200
+    environment: 
+      - DIR=crm-app-client
+      - EXPOSE_PORT=4200
+    depends_on:
+      - consul
+volumes:
+  consul-data:
+    driver: local
+  postgres-data:
+    driver: local
