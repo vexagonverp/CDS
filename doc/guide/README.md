@@ -1,15 +1,13 @@
-# Introduction
 
-"Capability Development System“ is a sub module of the internal CRM
+## Project Description
 
-+ Manage and define career paths
-+ Manage and suggest training plans
+The project aims to build a sub module of the internal CRM, called "Capability Development System". It provides below major features for the employees and the managers to define the career paths and the related training plans.
   
-  # Architecture
+## Architecture Overview
   
   ![alt text](./images/architecture.png)
   
-  # Requirements
+## Requirements
 * JDK 11(AdoptOpenJDK LTS)  
 * Node.js 
 * npm 
@@ -18,9 +16,9 @@
 * Maven
 * Docker
 
-# I. For Developer
+## Development Setup
 
-# Back-end
+### Back-end
 
 1. You need a PostGreSQL server running. Install and run PostGreSQL according to your OS with username=postgres, password=Abcd1234, database=postgres
    
@@ -100,7 +98,7 @@
      cdo-aas$ mvn -N io.takari:maven:wrapper
      ```
 
-# Front-end
+### Front-end
 
 Front-end is a webserver run at port 4200
 
@@ -115,9 +113,9 @@ Front-end is a webserver run at port 4200
     crm-app-client$ npm start
    ```
 
-# II. For Deployment
+## Manual Deployment
 
-# Back-end
+### Back-end
 
 1. You need a PostGreSQL server running. Install and run PostGreSQL according to your OS with username=postgres, password=Abcd1234, database=postgres
     Note: If you want to access PostGreSQL from outsite loclahost, edit pg_hba.conf in the installed folder and edit following line:
@@ -180,18 +178,15 @@ Front-end is a webserver run at port 4200
     gateway ./mvnw spring-boot:run
    ```
    
-   # Notes
-   
+	  **Notes**
    If ./mvnw spring-boot:run could not run, please install mvn wrapper:
    
    ```bash
     cdo-aas$ mvn -N io.takari:maven:wrapper
    ```
 
-# Front-end
-
+### Front-end
 Front-end is a webserver run at port 4200
-
 1. The Angular application can be started with npm. First, you need to download the dependencies with:
    
    ```bash
@@ -203,28 +198,20 @@ Front-end is a webserver run at port 4200
     crm-app-client$ npm start
    ```
 
-# Docker
+## Deployment with Docker
 
-Install Docker Desktop on Windows:
+1. Install Docker Desktop
+	+ Windows: [Install Docker Desktop ](https://docs.docker.com/docker-for-windows/install/)
+	+ macOS:  [Install Docker Desktop on Mac](https://docs.docker.com/docker-for-mac/install/)
 
-[Install Docker Desktop ](https://docs.docker.com/docker-for-windows/install/)
-
-on mac: [Install Docker Desktop on Mac](https://docs.docker.com/docker-for-mac/install/)
-
-1. Change directory from root project  to docker folder:
+2. Change directory from root project  to docker folder:
    
    ```bash
    cd docker
    ```
-
-2. Builds, (re)creates, starts, and attaches to containers for a service
+3. Builds, (re)creates, starts, and attaches to containers for a service
    
    ```bash
    docker-compose up -d
    ```
-
-    3. Run importDB.bat to create database
-
-
-
-![](C:\Users\Admin\AppData\Roaming\marktext\images\2021-06-17-14-19-37-image.png)
+4. Run importDB.bat to create database
