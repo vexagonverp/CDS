@@ -35,6 +35,7 @@ public class EmployeeController {
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("{id}")
     public ResponseEntity<EmployeeDetails> getDetails(@PathVariable("id") Long id) {
+        System.out.println("pong");
         return ResponseEntity.ok(employeeService.getEmployeeDetailsByEmployeeId(id));
     }
 

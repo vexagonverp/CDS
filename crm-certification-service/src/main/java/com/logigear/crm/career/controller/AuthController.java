@@ -37,6 +37,7 @@ public class AuthController {
 
 	@PostMapping("signin")
 	public ResponseEntity<UserResponse> authenticateUser(@Valid @RequestBody LoginRequest req) {
+		System.out.println("pong");
 		Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                 		req.getEmail(),
@@ -58,7 +59,7 @@ public class AuthController {
 	
     @PostMapping("signup")
 	public ResponseEntity<UserResponse> signup(@Valid @RequestBody SignUpRequest req) {
-    	
+		System.out.println("pong");
     	User user = userService.signup(req);
     	String token = tokenProvider.generateToken(user);
     	HttpHeaders responseHeaders = new HttpHeaders();

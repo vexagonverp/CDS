@@ -5,6 +5,8 @@ spring:
   application:
     name: gateway
   cloud:
+    discovery:
+      enabled: true
     loadbalancer:
       ribbon:
         # Not needed since we excluded the dependency
@@ -46,6 +48,7 @@ spring:
           args:
             retries: 5
             methods: GET,POST,OPTIONS,PATCH,PUT
+
 # Uncomment the configuration below if you want to enable route matching logs
 #logging:
 #  level:

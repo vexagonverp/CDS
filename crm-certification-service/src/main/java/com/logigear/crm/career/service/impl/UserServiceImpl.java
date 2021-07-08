@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	public User signup(SignUpRequest req) {
 		User u = new User();
 		u.setEmail(req.getEmail());
-		u.setName(req.getName());
+		u.setName(req.getFullName());
 		u.setPassword(passwordEncoder.encode(req.getPassword()));
 		Role userRole = roleRepository.findByName(RoleName.USER)
 				.orElseThrow(() -> new AppException("User Role not set."));

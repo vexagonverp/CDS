@@ -59,7 +59,7 @@ public class UserServiceTest {
         
         // given
     	SignUpRequest req = new SignUpRequest();
-    	req.setName(NAME);
+    	req.setFullName(NAME);
     	req.setEmail(EMAIL);
     	req.setPassword(PASSWORD);
     	
